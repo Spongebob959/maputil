@@ -7,8 +7,9 @@ import (
 type MapUtility[K comparable, V any] interface {
 	CreateMap(keys []K, values []V) (map[K]V, error)
 	MapToSlice(m map[K]V) ([]K, []V)
-	GetKeyByIndex(index int, m map[K]V) K
-	GetValByIndex(index int, m map[K]V) V
+	GetKeyByIndex(index int, m map[K]V) (K, error)
+	GetValByIndex(index int, m map[K]V) (V, error)
+	PopByIndex(index int, m map[K]V) (error)
 }
 
 type MapUtilityImpl[K comparable, V any] struct{}
@@ -31,7 +32,7 @@ func (mu MapUtilityImpl[K, V]) MapToSlices(m map[K]V) ([]K, []V) {
 		keys = append(keys, k)
 		values = append(values, v)
 	}
-	return keys, values
+	return keys, values 
 }
 
 func (mu MapUtilityImpl[K, V]) GetKeyByIndex(index int, m map[K]V) (K, error) {
