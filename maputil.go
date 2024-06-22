@@ -56,3 +56,11 @@ func (mu MapUtilityImpl[K, V]) GetValByIndex(index int, m map[K]V) (V, error) {
 	return value, nil
 }
 
+func (mu MapUtilityImpl[K, V]) PopByIndex(index int, m map[K]V) (error) {
+	key, err := mu.GetKeyByIndex(index, m)
+	if err != nil {
+		return err
+	}
+	delete(m, key)
+	return nil
+}
